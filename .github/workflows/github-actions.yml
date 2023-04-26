@@ -16,5 +16,7 @@ jobs:
     - name: SSH into EC2
       uses: easingthemes/ssh-deploy@v2.1.4
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        ARGS: "ssh ubuntu@34.222.147.193 cd /var/www/html/ && git pull"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        ARGS: "ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} cd /var/www/html/ && git pull"
