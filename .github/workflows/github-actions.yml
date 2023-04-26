@@ -32,7 +32,8 @@ on:
 
 jobs:
   deployment:
-  runs-on: ubuntu-latest
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
 
   steps:
     - name: Checkout the files
