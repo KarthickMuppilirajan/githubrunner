@@ -1,44 +1,20 @@
-# name: Push-to-EC2
-
-# # Trigger deployment only on push to master branch
-# on:
-#   push:
-#     branches:
-#       - main
-
-jobs:
-  deploy:
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-name: "Server Deployment"
+name: Pull Latest Code
 
 on:
-	push:
-  	branches: 
+  push:
+    branches:
       - main
 
 jobs:
-  deployment:
-    name: Deploy to EC2 on main branch push
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Say Hello!
-        run: echo "Hello there!"
-   
+    - uses: actions/checkout@v2
+    - name: Install SSH
+      run: sudo apt-get install openssh-client
+    - name: SSH into EC2
+      uses: easingthemes/ssh-deploy@v2.1.4
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        ARGS: "ssh ubuntu@34.222.147.193 cd /var/www/html/ && git pull"
