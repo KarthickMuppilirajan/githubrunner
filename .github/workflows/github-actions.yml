@@ -34,7 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     
   steps:
-    - name: Install SSH Key
+    - name: Checkout the files
+      uses: actions/checkout@v2
+    
+    - name: Authenticate SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
