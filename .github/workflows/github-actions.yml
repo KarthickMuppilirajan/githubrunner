@@ -38,11 +38,11 @@ jobs:
 
   	runs-on: ubuntu-latest
 
-    steps:
+  steps:
 
     - uses: actions/checkout@v2
 
-    - name: Say Hello!
+  - name: Say Hello!
 
     run: echo "Hello there!"
    
