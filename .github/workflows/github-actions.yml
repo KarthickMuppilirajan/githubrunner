@@ -6,22 +6,22 @@
 #     branches:
 #       - main
 
-# jobs:
-#   deploy:
-#     name: Deploy to EC2 on master branch push
-#     runs-on: ubuntu-latest
+jobs:
+  deploy:
+    name: Deploy to EC2 on master branch push
+    runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Checkout the files
-    #     uses: actions/checkout@v2
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
 
-    #   - name: Deploy to Server 1
-    #     uses: easingthemes/ssh-deploy@main
-    #     env:
-    #       SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-    #       REMOTE_HOST: ${{ secrets.HOST_DNS }}
-    #       REMOTE_USER: ${{ secrets.USERNAME }}
-    #       TARGET: ${{ secrets.TARGET_DIR }}
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
 
 name: "Server Deployment"
 
@@ -35,10 +35,10 @@ jobs:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout the files
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
 
-    - name: Say Hello!
-      run: echo "Hello there!"
+      - name: Say Hello!
+        run: echo "Hello there!"
    
