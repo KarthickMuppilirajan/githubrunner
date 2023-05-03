@@ -8,14 +8,14 @@ jobs:
     name: Deploy branch master
     runs-on: ubuntu-latest
     steps:
-      — name: Checkout and restart the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_HOST }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /var/www/html/
-            git checkout — *
-            git checkout master
-            git pull origin master
+     name: Checkout and restart the server
+     uses: appleboy/ssh-action@master
+      with:
+      host: ${{ secrets.REMOTE_HOST }}
+      username: ${{ secrets.REMOTE_HOST }}
+      key: ${{ secrets.SSH_PRIVATE_KEY }}
+      script: |
+        cd /var/www/html/
+        git checkout — *
+        git checkout master
+        git pull origin master
