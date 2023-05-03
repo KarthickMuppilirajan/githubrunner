@@ -14,8 +14,4 @@ jobs:
           username: ${{ secrets.REMOTE_HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # cd /var/www/html/
-            # git checkout — *
-            # git checkout master
-            # git pull origin master
             echo hello world > hello.txt
