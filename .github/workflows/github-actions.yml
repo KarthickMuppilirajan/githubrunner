@@ -1,21 +1,18 @@
-name: Deploy on server
-on:
-push:
-  branches:
-    — main
+name: Access server
+on: push
 jobs:
-  deploy:
-    name: Deploy branch master
+  access_server:
+    name: Access server
     runs-on: ubuntu-latest
     steps:
-     name: Checkout and restart the server
-     uses: appleboy/ssh-action@master
-      with:
-      host: ${{ secrets.REMOTE_HOST }}
-      username: ${{ secrets.REMOTE_HOST }}
-      key: ${{ secrets.SSH_PRIVATE_KEY }}
-      script: |
-        cd /var/www/html/
-        git checkout — *
-        git checkout master
-        git pull origin master
+      — name: Create a file
+        uses: appleboy/ssh-action@master
+        with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_HOST }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /var/www/html/
+          git checkout — *
+          git checkout master
+          git pull origin master
