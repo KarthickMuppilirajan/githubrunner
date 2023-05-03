@@ -7,7 +7,7 @@ jobs:
     name: Access server
     runs-on: ubuntu-latest
     steps:
-      - name: multiple command
+      - name: SSH Key
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_HOST }}
