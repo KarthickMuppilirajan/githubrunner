@@ -1,22 +1,21 @@
-name: Pull Latest Code
-
+name: Deploy on server
 on:
-  push:
-    branches:
-      - main
-
+push:
+  branches:
+    — master
 jobs:
-  build:
+  deploy:
+    name: Deploy branch master
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Install SSH
-      run: sudo apt-get install openssh-client
-    - name: SSH into EC2
-      uses: easingthemes/ssh-deploy@v2.1.4
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        ARGS: "ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@34.222.147.193 cd /var/www/html/ && git pull"
+      — name: Checkout and restart the server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/html/
+            git checkout — *
+            git checkout master
+            git pull origin master
