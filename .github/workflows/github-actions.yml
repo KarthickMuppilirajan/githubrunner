@@ -1,12 +1,14 @@
 name: Access server
+
 on: push
+
 jobs:
   access_server:
     name: Access server
     runs-on: ubuntu-latest
     steps:
-      — name: Create a file
-        uses: appleboy/ssh-action@master
+      - name: Create a file
+      - uses: appleboy/ssh-action@master
         with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_HOST }}
