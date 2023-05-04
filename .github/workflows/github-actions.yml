@@ -1,18 +1,44 @@
-name: Access server
+# name: Access server
 
-on: push
+# on: push
+
+# jobs:
+#   access_server:
+#     name: Access server
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: SSH Key
+#         uses: appleboy/ssh-action@v0.1.10
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.REMOTE_USER }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           port: ${{ secrets.PORT }}
+#           script: |
+#             echo 'Test' >> /var/www/html/test.txt
+
+
+name: Pull code after push
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  access_server:
-    name: Access server
+  pull-code:
     runs-on: ubuntu-latest
     steps:
-      - name: SSH Key
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Pull code from remote
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            echo 'Test' >> /var/www/html/test.txt
+            cd /var/www/html/
+            git pull
