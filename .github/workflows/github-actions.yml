@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env: 
-      HOST: 34.220.123.54
+      REMOTE_HOST: 34.220.123.54
 
     steps:
       - name: Checkout code
@@ -39,7 +39,7 @@ jobs:
       - name: Pull code from remote
         uses: appleboy/ssh-action@master
         with:
-          host: $HOST
+          host: $REMOTE_HOST
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
