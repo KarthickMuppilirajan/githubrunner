@@ -16,4 +16,3 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             whoami
-            ls -al
