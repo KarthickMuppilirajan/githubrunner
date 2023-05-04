@@ -39,4 +39,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/
-            git pull https://${{ secrets.TOKEN }}@github.com/githubrunner
+            git pull origin main
