@@ -49,6 +49,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/
-            git config --global --add safe.directory /var/www/html
-            git remote add origin git@github.com:KarthickMuppilirajan/githubrunner.git
+            git config --global --add safe.directory /var/www/html/githubrunner
             git pull origin main
