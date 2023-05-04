@@ -40,4 +40,5 @@ jobs:
           script: |
             cd /var/www/html/
             git config --global --add safe.directory /var/www/html
+            git remote add https://github.com/KarthickMuppilirajan/githubrunner.git
             git pull origin main
