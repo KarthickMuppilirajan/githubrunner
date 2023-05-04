@@ -30,6 +30,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN }}
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: xdebug-beta
+
       - name: Pull code from remote
         uses: appleboy/ssh-action@master
         with:
@@ -40,5 +50,5 @@ jobs:
           script: |
             cd /var/www/html/
             git config --global --add safe.directory /var/www/html
-            git remote add githubrunner git@github.com:KarthickMuppilirajan/githubrunner.git
+            git remote add origin git@github.com:KarthickMuppilirajan/githubrunner.git
             git pull origin main
