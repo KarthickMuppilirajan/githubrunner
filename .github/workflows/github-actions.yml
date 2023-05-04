@@ -28,21 +28,15 @@ on:
 jobs:
   pull-code:
     runs-on: ubuntu-latest
-    
-    env: 
-      REMOTE_HOST: 34.220.123.54
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
       - name: Pull code from remote
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@master
         with:
-          host: 34.220.123.54
+          host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/
-            git pull
+            git pull https://${{ secrets.TOKEN }}@github.com/githubrunner
