@@ -1,50 +1,24 @@
-# name: Access server
+name: Push-to-EC2
 
-# on: push
-
-# jobs:
-#   access_server:
-#     name: Access server
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: SSH Key
-#         uses: appleboy/ssh-action@v0.1.10
-#         with:
-#           host: ${{ secrets.SSH_HOST }}
-#           username: ${{ secrets.REMOTE_USER }}
-#           key: ${{ secrets.SSH_PRIVATE_KEY }}
-#           port: ${{ secrets.PORT }}
-#           script: |
-#             echo 'Test' >> /var/www/html/test.txt
-
-
-name: Pull code after push
-
+# Trigger deployment only on push to master branch
 on:
   push:
     branches:
       - main
 
 jobs:
-  pull-code:
+  deploy:
+    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.TOKEN }}
-      
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: xdebug-beta
+      - name: Checkout the files
+        uses: actions/checkout@v2
 
-      - name: Pull code from remote
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          target_dir: ${{ secrets.TARGET_DIR }}
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
