@@ -41,7 +41,7 @@ jobs:
           extensions: xdebug-beta
 
       - name: Pull code from remote
-        uses: appleboy/ssh-action@master
+        uses: easingthemes/ssh-deploy@main
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
