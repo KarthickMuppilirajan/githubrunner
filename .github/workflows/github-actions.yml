@@ -47,7 +47,4 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            cd /var/www/html/
-            git config --global --add safe.directory /var/www/html/githubrunner
-            git pull origin main
+          target_dir: ${{ secrets.TARGET_DIR }}
